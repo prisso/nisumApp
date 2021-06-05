@@ -6,3 +6,6 @@ The idea in this challenge is to use the maximum of the state-of-art in Android.
 In this first commit I've prepared projects' structure without writing a class. All the code that is visible was made by Android Studio except those related to Navigation and views (XML files)
 
 In this second commit I've introduced models and Search API. No test file is necessary at this time.
+
+New commit. In this time, 4 test were added and must fail. Does test are related to the services.
+
