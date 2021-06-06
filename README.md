@@ -23,6 +23,8 @@ Clarification: paging is carried out by simulation since Apple API doesn't let y
 
 - Since I gona have same problem to test AlbumViewModel a moved SearchRepository class to a new one called SearchRepositoryImpl. SearchRepository is a interface now.
 
+- In this new commit and the next ones, the idea is to develop step-by-step the TDD process. Running the test wouldn't fail because
+the AlbumViewModel class has been created before. I don't have made it before since TDD process is time-consuming and I don't have enought time right now. In real projects, a balance must be done between end-time constraint and requirements.
 
 
 
