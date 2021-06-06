@@ -1,8 +1,14 @@
 package com.example.nisumapp.ui.child
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.nisumapp.models.Song
 import com.example.nisumapp.repos.SearchRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 
 
 class AlbumViewModelFactory(var repository: SearchRepository): ViewModelProvider.Factory {
@@ -12,5 +18,10 @@ class AlbumViewModelFactory(var repository: SearchRepository): ViewModelProvider
 
 
 class AlbumViewModel(var repository: SearchRepository) : ViewModel() {
-    // TODO: Implement the ViewModel
+    private val _songAlbumList = MutableLiveData<List<Song>>()
+    val songList: LiveData<List<Song>> = _songAlbumList
+
+
+    fun makeAlbumFromCollection(id: Int) {
+    }
 }
