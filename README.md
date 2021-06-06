@@ -18,6 +18,11 @@ Two of three test are passed. I must continue to resolve the issues in the Remot
 
 - Here I introduce a test for the SearchRepository class. I made multiple approachs using different powerful frameworks without success. Finally, I made a change in the the LocalSearchService class introducing the StorableSearchService which is a extension of SearchService interface. Other changes were made in the code since I forgot a field in the Song model
 
-- Implemented SearchViewModel. No test was carried out this time.
+- Implemented SearchViewModel. No test was carried out this time. Paging and manage exception is made here.
+Clarification: paging is carried out by simulation since Apple API doesn't let you make paging. You have option to take a maximum number of results but no from where you receive the list.
+
+- Since I gona have same problem to test AlbumViewModel a moved SearchRepository class to a new one called SearchRepositoryImpl. SearchRepository is a interface now.
+
+
 
 

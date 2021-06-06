@@ -1,6 +1,5 @@
 package com.example.nisumapp.repos
 
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.nisumapp.models.*
 import kotlinx.coroutines.runBlocking
@@ -12,7 +11,7 @@ import org.junit.Test
 
 class SearchRepositoryTest {
 
-    private lateinit var repository: SearchRepository
+    private lateinit var repository: SearchRepositoryImpl
 
     @Before
     fun setup() {
@@ -20,7 +19,7 @@ class SearchRepositoryTest {
         val localService = LocalSearchServiceMock()
         val remoteService = RemoteSearchServiceMock()
 
-        repository = SearchRepository(context, localService, remoteService)
+        repository = SearchRepositoryImpl(context, localService, remoteService)
     }
 
     @Test
@@ -33,24 +32,6 @@ class SearchRepositoryTest {
     fun testWhenSearchTermIsUnknown() = runBlocking {
         val list = repository.searchFor( unknownTestTerm )
         Assert.assertThat(list.size, equalTo(0))
-    }
-
-    @Test
-    fun testMakeAlbumFromCollectionIdWhenIDIsContainedInList() = runBlocking {
-        repository.searchFor( testTerm )
-        val album = repository.makeAlbumFromCollection( testCollectionId )
-
-        Assert.assertThat(album.size, equalTo(2))
-        Assert.assertThat(album[0], equalTo(testSong1))
-        Assert.assertThat(album[1], equalTo(testSong2))
-    }
-
-    @Test
-    fun testMakeAlbumFromCollectionIdWhenIDIsNotInList() = runBlocking {
-        repository.searchFor( testTerm )
-        val album = repository.makeAlbumFromCollection( -1 )
-
-        Assert.assertThat(album.size, equalTo(0))
     }
 
     // TODO: How do I make to test when there isn't a internet connection?
