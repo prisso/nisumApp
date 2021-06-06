@@ -1,5 +1,6 @@
 package com.example.nisumapp.services.impl
 
+import com.example.nisumapp.models.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
@@ -7,8 +8,6 @@ import org.junit.Test
 class RemoteSearchServiceTest {
 
     private val service = RemoteSearchService()
-    private val knownTerm = "in utero"
-    private val unknownTerm = "kdjfsdkjfsdk"
 
     @Test
     fun testSearchForEmptyTerm() = runBlocking {
@@ -18,13 +17,13 @@ class RemoteSearchServiceTest {
 
     @Test
     fun testSearchForKnownTerm() = runBlocking {
-        val list = service.searchFor( knownTerm )
+        val list = service.searchFor( testTerm )
         Assert.assertTrue( list.isNotEmpty() )
     }
 
     @Test
     fun testSearchForUnknownTerm() = runBlocking {
-        val list = service.searchFor( unknownTerm )
+        val list = service.searchFor( unknownTestTerm )
         Assert.assertFalse( list.isNotEmpty() )
     }
 }
