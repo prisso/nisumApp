@@ -15,11 +15,14 @@ class SearchRepository(private val context: Context,
 
     private var currentService: SearchService? = null
     private val songsList = mutableListOf<Song>()
+    private var currentSearchTerm: String = ""
+
 
     suspend fun searchFor(term: String): List<Song> {
         songsList.clear()
         currentService = if (isOnline()) remoteService else localService
 
+        currentSearchTerm = term
         val songs = currentService?.searchFor( term )
         songs?.let { songsList.addAll(it) }
 
@@ -27,6 +30,7 @@ class SearchRepository(private val context: Context,
         return songsList
     }
 
+    // I think that this method shouldn't be here and must be moved to AlbumViewModel. Change for next commit
     suspend fun makeAlbumFromCollection(id: Int): List<Song> {
         val job = CoroutineScope( Dispatchers.Default ).async {
             songsList.filter { it.collectionId == id }.sortedBy { it.trackId }
@@ -53,4 +57,8 @@ class SearchRepository(private val context: Context,
         }
         return false
     }
+
+    fun getCurrentSearchTerm(): String = this.currentSearchTerm
+
+    fun getCurrentSongList(): List<Song> = songsList.toList()
 }
