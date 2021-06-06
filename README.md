@@ -18,3 +18,5 @@ Two of three test are passed. I must continue to resolve the issues in the Remot
 
 - Here I introduce a test for the SearchRepository class. I made multiple approachs using different powerful frameworks without success. Finally, I made a change in the the LocalSearchService class introducing the StorableSearchService which is a extension of SearchService interface. Other changes were made in the code since I forgot a field in the Song model
  
+- SearchRepository class is fully implemented, so now test must run successfully. Also, the repo was added as parameter in the viewModels of the fragments and made a property of MainActivity
+ 
