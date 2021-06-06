@@ -14,3 +14,5 @@ Also, request permission to internet and to check the status of network.
 I've defined some interfaces for Storage and Search services. Finally, implemented the required classes.
 Two of three test are passed. I must continue to resolve the issues in the RemoteSearchServiceTest.
 
+The issue was fixed and the tests ends successfully now. A new test was introduced for empty term.
+

@@ -11,14 +11,20 @@ class RemoteSearchServiceTest {
     private val unknownTerm = "kdjfsdkjfsdk"
 
     @Test
+    fun testSearchForEmptyTerm() = runBlocking {
+        val list = service.searchFor("" )
+        Assert.assertTrue( list.isEmpty() )
+    }
+
+    @Test
     fun testSearchForKnownTerm() = runBlocking {
-        var list = service.searchFor( knownTerm )
+        val list = service.searchFor( knownTerm )
         Assert.assertTrue( list.isNotEmpty() )
     }
 
     @Test
     fun testSearchForUnknownTerm() = runBlocking {
-        var list = service.searchFor( unknownTerm )
+        val list = service.searchFor( unknownTerm )
         Assert.assertFalse( list.isNotEmpty() )
     }
 }

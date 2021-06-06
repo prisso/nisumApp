@@ -1,7 +1,6 @@
 package com.example.nisumapp.services.impl
 
 import com.example.nisumapp.models.SearchResult
-import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,12 +8,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+
 interface SearchApi {
 
     @GET("/search?media=music")
     suspend fun searchTerm(
         @Query("term") term: String
-    ): Deferred<SearchResult>
+    ): SearchResult
 
     companion object {
         private const val BASE_URL = "http://itunes.apple.com/"

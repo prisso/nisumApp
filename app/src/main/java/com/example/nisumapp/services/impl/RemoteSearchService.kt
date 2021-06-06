@@ -8,7 +8,8 @@ class RemoteSearchService : SearchService {
     override suspend fun searchFor(term: String): List<Song> {
         if (term.isEmpty()) return emptyList()
 
-        val searchResult = SearchApi.create().searchTerm(term).await()
+        val searchResult = SearchApi.create().searchTerm(term)
+
         return searchResult.results
     }
 
