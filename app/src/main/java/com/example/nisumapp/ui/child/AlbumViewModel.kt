@@ -18,6 +18,12 @@ class AlbumViewModelFactory(var repository: SearchRepository): ViewModelProvider
 }
 
 
+enum class BuildAlbumState {
+    MAKING,
+    FINISHED
+}
+
+
 class AlbumViewModel(var repository: SearchRepository) : ViewModel() {
     private val _songAlbumList = MutableLiveData<List<Song>>()
     val songList: LiveData<List<Song>> = _songAlbumList
@@ -25,15 +31,27 @@ class AlbumViewModel(var repository: SearchRepository) : ViewModel() {
     private val _viewState = MutableLiveData<AlbumViewState>()
     val viewState: LiveData<AlbumViewState> = _viewState
 
+/*
+    private val _buildingState = MutableLiveData<BuildAlbumState>()
 
+    val buildAlbumState: LiveData<BuildAlbumState> = _buildingState
+*/
     fun loadInfo() {
+        val song = repository.getCurrentSongList().first()
+        with(_viewState) {
+            value = AlbumViewState.albumTitleUpdated( song.collectionName )
+            value = AlbumViewState.bandNameUpdated( song.artistName )
+            value = AlbumViewState.artworkUpdated( song.artworkUrl )
+        }
     }
 
     fun makeAlbumFromCollection(id: Int) {
         if (repository.getCurrentSongList().isEmpty()) return
 
+        //_buildingState.postValue( BuildAlbumState.MAKING )
         CoroutineScope( Dispatchers.Default ).launch {
             val list = repository.getCurrentSongList().filter { it.collectionId == id }.sortedBy { it.trackId }
+            //_buildingState.postValue( BuildAlbumState.FINISHED )
             _songAlbumList.postValue( list )
         }
     }

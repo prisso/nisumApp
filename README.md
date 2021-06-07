@@ -32,6 +32,8 @@ the AlbumViewModel class has been created before. I don't have made it before si
 
 - Complete code to test when viewModel loadInfo for complete fragment's view. The loadInfo block is empty. Test fails.
 
+- LoadInfo method was fulfilled so test ends successfully.
+
 
 
 
