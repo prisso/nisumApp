@@ -34,6 +34,7 @@ the AlbumViewModel class has been created before. I don't have made it before si
 
 - LoadInfo method was fulfilled so test ends successfully.
 
+- Close this Step-by-step with a simple inclusion of code to control building album state. Including a test for it.
 
 
 

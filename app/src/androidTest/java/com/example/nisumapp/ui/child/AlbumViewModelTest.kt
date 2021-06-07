@@ -16,6 +16,7 @@ class AlbumViewModelTest {
 
     private lateinit var viewModel: AlbumViewModel
     private val viewStateObserver: Observer<AlbumViewState> = mock()
+    private val buildAlbumStateObserver: Observer<BuildAlbumState> = mock()
 
     @Rule
     @JvmField
@@ -25,6 +26,7 @@ class AlbumViewModelTest {
     fun setup() {
         viewModel = AlbumViewModel( SearchRepositoryMock() )
         viewModel.viewState.observeForever(viewStateObserver)
+        viewModel.buildAlbumState.observeForever(buildAlbumStateObserver)
     }
 
     @Test
@@ -50,5 +52,13 @@ class AlbumViewModelTest {
         verify(viewStateObserver).onChanged(AlbumViewState.artworkUpdated(testSong1.artworkUrl))
         verify(viewStateObserver).onChanged(AlbumViewState.bandNameUpdated(testSong1.artistName))
         verify(viewStateObserver).onChanged(AlbumViewState.albumTitleUpdated(testSong1.collectionName))
+    }
+
+    @Test
+    fun testWhenStateAlbumWhenItsBuilding() {
+        viewModel.makeAlbumFromCollection( testCollectionId )
+
+        verify(buildAlbumStateObserver).onChanged(BuildAlbumState.MAKING)
+        // How should I do to test finished event?
     }
 }
