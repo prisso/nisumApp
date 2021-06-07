@@ -23,12 +23,18 @@ class SongDataSource(private val repository: SearchRepository, val searchTerm: S
         CoroutineScope(Dispatchers.Default).launch {
             val page = params.key
             val songList = repository.getCurrentSongList()
-            val newPage = if (songList.size >= (page+1) * params.requestedLoadSize)
-                songList.slice( IntRange((page * params.requestedLoadSize), ((page+1) * params.requestedLoadSize)) )
+            if (page > songList.size) {
+                _networkState.postValue(NetworkState.SUCCESS)
+                return@launch
+            }
+
+            val newPage = if (songList.size >= page + params.requestedLoadSize)
+                songList.slice( IntRange(page, page + params.requestedLoadSize) )
             else
-                songList.takeLast( songList.size - (page * params.requestedLoadSize) )
+                songList.takeLast( songList.size - page )
+
             _networkState.postValue(NetworkState.SUCCESS)
-            callback.onResult(newPage, page+1)
+            callback.onResult(newPage, page + params.requestedLoadSize)
         }
     }
 
@@ -42,6 +48,7 @@ class SongDataSource(private val repository: SearchRepository, val searchTerm: S
             val result = repository.searchFor( searchTerm )
             val firstPage = result.take(params.requestedLoadSize)
             _networkState.postValue(NetworkState.SUCCESS)
+            println("Next page size ${firstPage.size}")
             callback.onResult(firstPage, 0, firstPage.size)
         }
     }

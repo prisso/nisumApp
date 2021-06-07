@@ -20,10 +20,15 @@ class SearchViewModelFactory(var repository: SearchRepository): ViewModelProvide
 
 class SearchViewModel(var repository: SearchRepository) : ViewModel() {
 
-    private val songDataSource = SongDataSourceFactory(repository)
-    val songsList = LivePagedListBuilder<Int, Song>(songDataSource, pagedListConfig()).build()
-    val networkState: LiveData<NetworkState> = (songDataSource.getSongSource() as SongDataSource).networkState
+    private lateinit var songDataSource: SongDataSourceFactory
+    lateinit var songsList: LiveData<PagedList<Song>>
+    lateinit var networkState: LiveData<NetworkState>
 
+    fun init() {
+        songDataSource = SongDataSourceFactory(repository)
+        songsList = LivePagedListBuilder<Int, Song>(songDataSource, pagedListConfig()).build()
+        networkState = (songDataSource.getSongSource() as SongDataSource).networkState
+    }
 
     fun fetchSongsByTerm(term: String) {
         val search = term.trim()
@@ -32,9 +37,8 @@ class SearchViewModel(var repository: SearchRepository) : ViewModel() {
     }
 
     private fun pagedListConfig() = PagedList.Config.Builder()
-        .setInitialLoadSizeHint(5)
+        .setInitialLoadSizeHint(20)
         .setEnablePlaceholders(false)
         .setPageSize(20)
         .build()
-
 }

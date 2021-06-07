@@ -37,4 +37,8 @@ the AlbumViewModel class has been created before. I don't have made it before si
 - Close this Step-by-step with a simple inclusion of code to control building album state. Including a test for it.
 
 
+- Implemented SearchFrament. No test will made from now. I haven't more time neither mind.
+
+
+
 

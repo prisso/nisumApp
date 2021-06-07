@@ -17,7 +17,10 @@ class SongDataSourceFactory(val repository: SearchRepository, var searchTerm: St
 
     fun getCurrentTerm() = searchTerm
 
-    fun getSongSource() = songDataSource
+    fun getSongSource(): DataSource<Int, Song> {
+        if (!this::songDataSource.isInitialized) this.create()
+        return songDataSource
+    }
 
     fun updateTerm(term: String) {
         this.searchTerm = term
