@@ -26,7 +26,9 @@ Clarification: paging is carried out by simulation since Apple API doesn't let y
 - In this new commit and the next ones, the idea is to develop step-by-step the TDD process. Running the test wouldn't fail because
 the AlbumViewModel class has been created before. I don't have made it before since TDD process is time-consuming and I don't have enought time right now. In real projects, a balance must be done between end-time constraint and requirements.
 
-- Second step in TDD process. Fulfilled the two test related to create an album from collection id. Test fails in compilation time since methods hasn't been created yet. So, we create that method in the AlbumViewModel class including the LiveData for the song's list. Now test fails because asserts don't verifys since no code it's inside method block.
+- Second step in TDD process. Fulfilled the two test related to create an album from collection id. Test fails in compilation time since methods hasn't been created yet. So, we create a empty method in the AlbumViewModel class including the LiveData property for the song's list. Now test fails because asserts don't verifys since no code it's inside method block.
+
+- The test previously fails because an exception when Observer was mocking. Another approach is proposed in a classic way. The method is completed and now tests end successfuly
 
 
 

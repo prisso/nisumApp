@@ -1,11 +1,10 @@
 package com.example.nisumapp.ui.child
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.example.nisumapp.models.*
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import org.hamcrest.Matchers
+import com.nhaarman.mockito_kotlin.*
+import kotlinx.coroutines.runBlocking
+import org.hamcrest.Matchers.equalTo
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -20,26 +19,25 @@ class AlbumViewModelTest {
     @JvmField
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val songListObserver: Observer<List<Song>> = mock()
-
     @Before
     fun setup() {
         viewModel = AlbumViewModel( SearchRepositoryMock() )
-        viewModel.songList.observeForever(songListObserver)
     }
 
     @Test
-    fun testMakeAlbumFromCollectionIdWhenIDIsContainedInList() {
+    fun testMakeAlbumFromCollectionIdWhenIDIsContainedInList() = runBlocking {
         viewModel.makeAlbumFromCollection( testCollectionId )
-
-        verify(songListObserver).onChanged(listOf(testSong1, testSong2))
+        viewModel.songList.observeForever { songList ->
+            Assert.assertThat(songList, equalTo(listOf(testSong1, testSong2)))
+        }
     }
 
     @Test
     fun testMakeAlbumFromCollectionIdWhenIDIsNotInList() {
         viewModel.makeAlbumFromCollection( -1 )
-
-        verify(songListObserver).onChanged(listOf())
+        viewModel.songList.observeForever { shouldBeEmpty ->
+            Assert.assertThat(shouldBeEmpty, equalTo(listOf()))
+        }
     }
 
     @Test

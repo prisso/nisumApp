@@ -23,5 +23,11 @@ class AlbumViewModel(var repository: SearchRepository) : ViewModel() {
 
 
     fun makeAlbumFromCollection(id: Int) {
+        if (repository.getCurrentSongList().isEmpty()) return
+
+        CoroutineScope( Dispatchers.Default ).async {
+            val list = repository.getCurrentSongList().filter { it.collectionId == id }.sortedBy { it.trackId }
+            _songAlbumList.postValue( list )
+        }
     }
 }
