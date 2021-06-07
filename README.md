@@ -30,6 +30,8 @@ the AlbumViewModel class has been created before. I don't have made it before si
 
 - The test previously fails because an exception when Observer was mocking. Another approach is proposed in a classic way. The method is completed and now tests end successfuly
 
+- Complete code to test when viewModel loadInfo for complete fragment's view. The loadInfo block is empty. Test fails.
+
 
 
 

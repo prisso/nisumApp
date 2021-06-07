@@ -1,6 +1,7 @@
 package com.example.nisumapp.ui.child
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.nisumapp.models.*
 import com.nhaarman.mockito_kotlin.*
 import kotlinx.coroutines.runBlocking
@@ -14,6 +15,7 @@ import org.junit.Test
 class AlbumViewModelTest {
 
     private lateinit var viewModel: AlbumViewModel
+    private val viewStateObserver: Observer<AlbumViewState> = mock()
 
     @Rule
     @JvmField
@@ -22,6 +24,7 @@ class AlbumViewModelTest {
     @Before
     fun setup() {
         viewModel = AlbumViewModel( SearchRepositoryMock() )
+        viewModel.viewState.observeForever(viewStateObserver)
     }
 
     @Test
@@ -42,6 +45,10 @@ class AlbumViewModelTest {
 
     @Test
     fun testLoadInfoFromCollection() {
+        viewModel.loadInfo()
 
+        verify(viewStateObserver).onChanged(AlbumViewState.artworkUpdated(testSong1.artworkUrl))
+        verify(viewStateObserver).onChanged(AlbumViewState.bandNameUpdated(testSong1.artistName))
+        verify(viewStateObserver).onChanged(AlbumViewState.albumTitleUpdated(testSong1.collectionName))
     }
 }
