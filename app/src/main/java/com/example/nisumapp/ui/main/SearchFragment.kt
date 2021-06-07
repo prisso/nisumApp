@@ -48,6 +48,7 @@ class SearchFragment : Fragment(), SongItemAdapter.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.progressBar.isVisible = false
+        binding.editSearchTermEdit.setText("in utero")
 
         viewModel.init()
 

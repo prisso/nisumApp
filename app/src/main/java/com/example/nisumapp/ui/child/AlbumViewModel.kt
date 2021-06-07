@@ -35,11 +35,12 @@ class AlbumViewModel(var repository: SearchRepository) : ViewModel() {
     val buildAlbumState: LiveData<BuildAlbumState> = _buildingState
 
     fun loadInfo() {
-        val song = repository.getCurrentSongList().first()
-        with(_viewState) {
-            value = AlbumViewState.albumTitleUpdated( song.collectionName )
-            value = AlbumViewState.bandNameUpdated( song.artistName )
-            value = AlbumViewState.artworkUpdated( song.artworkUrl )
+        _songAlbumList.value?.get(0)?.let { song ->
+            with(_viewState) {
+                value = AlbumViewState.albumTitleUpdated( song.collectionName )
+                value = AlbumViewState.bandNameUpdated( song.artistName )
+                value = AlbumViewState.artworkUpdated( song.artworkUrl )
+            }
         }
     }
 
