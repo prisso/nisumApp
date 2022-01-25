@@ -9,7 +9,7 @@ The idea in this challenge is to use the maximum of the state-of-art in Android.
 
 - New commit. In this time, 4 test were added and must fail. Does test are related to the services.
 
-- Ok, here I made some change in the model since a field added is not used in when media=music abd renamed a class.
+here I made some change in the model since a field added is not used in when media=music abd renamed a class.
 Also, request permission to internet and to check the status of network.
 I've defined some interfaces for Storage and Search services. Finally, implemented the required classes.
 Two of three test are passed. I must continue to resolve the issues in the RemoteSearchServiceTest.
